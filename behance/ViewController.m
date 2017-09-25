@@ -64,6 +64,17 @@
         startBlock();
     }
     
+    id resp = [[NSUserDefaults standardUserDefaults] objectForKey:urlString];
+    if (resp) {
+        dispatch_async(dispatch_queue_create("download html queue", nil), ^{
+            
+            if (successHandler) {
+                successHandler(resp);
+            }
+        });
+//        有缓存就直接返回
+        return;
+    }
     
     NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"https" ofType:@"cer"];
     NSData * certData =[NSData dataWithContentsOfFile:cerPath];
@@ -81,7 +92,9 @@
     [manager.requestSerializer setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:55.0) Gecko/20100101 Firefox/55.0" forHTTPHeaderField:@"User-Agent"];
     [manager.requestSerializer setValue:@"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3" forHTTPHeaderField:@"Accept-Language"];
     [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
-    [manager.requestSerializer setValue:@"bgk=15634844; bcp=e4f840a5-bdb4-4f34-bc67-28ef150dcdc3; ilo0=true" forHTTPHeaderField:@"Cookie"];
+
+//    [manager.requestSerializer setValue:@"bgk=15634844; bcp=e4f840a5-bdb4-4f34-bc67-28ef150dcdc3; ilo0=true" forHTTPHeaderField:@"Cookie"];
+    [manager.requestSerializer setValue:@"bgk=27029875;ilo0=true" forHTTPHeaderField:@"Cookie"];
     [manager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
     [manager.requestSerializer setValue:@"1" forHTTPHeaderField:@"Upgrade-Insecure-Requests"];
     [manager.requestSerializer setValue:@"max-age=0" forHTTPHeaderField:@"Cache-Control"];
@@ -91,6 +104,10 @@
     [manager GET:urlString parameters:nil progress:^(NSProgress * progress){
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        
+        [[NSUserDefaults standardUserDefaults]setObject:responseObject forKey:task.response.URL.absoluteString];
+        
         dispatch_async(dispatch_queue_create("download html queue", nil), ^{
             
             if (successHandler) {
@@ -108,8 +125,8 @@
 - (NSArray*)HTMLDocumentWithData:(NSData*)data{
     NSMutableArray*array = [NSMutableArray new];
     ONOXMLDocument *doc = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
-    [doc enumerateElementsWithXPath:@"//div" usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
-        NSLog(@"element_%@",element);
+    [doc enumerateElementsWithXPath:@"//img//@srcset" usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
+        NSLog(@"%ld_%@",idx,element);
     }];
     return array;
 }
