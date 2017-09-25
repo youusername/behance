@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08E7111CF2FCE9C91FC018BC /* libPods-behance.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE48D543643B088F908CEC7A /* libPods-behance.a */; };
 		6193D1DF1F78F7B400B4C101 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1DE1F78F7B400B4C101 /* AppDelegate.m */; };
 		6193D1E21F78F7B400B4C101 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1E11F78F7B400B4C101 /* ViewController.m */; };
 		6193D1E41F78F7B400B4C101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6193D1E31F78F7B400B4C101 /* Assets.xcassets */; };
 		6193D1E71F78F7B400B4C101 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6193D1E51F78F7B400B4C101 /* Main.storyboard */; };
 		6193D1EA1F78F7B400B4C101 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1E91F78F7B400B4C101 /* main.m */; };
+		6193D1F41F790BDB00B4C101 /* https.cer in Resources */ = {isa = PBXBuildFile; fileRef = 6193D1F31F790B4900B4C101 /* https.cer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4750EA6F2BE2160AEADC962A /* Pods-behance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-behance.release.xcconfig"; path = "Pods/Target Support Files/Pods-behance/Pods-behance.release.xcconfig"; sourceTree = "<group>"; };
 		6193D1DA1F78F7B400B4C101 /* behance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = behance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6193D1DD1F78F7B400B4C101 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6193D1DE1F78F7B400B4C101 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -25,6 +28,9 @@
 		6193D1E81F78F7B400B4C101 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6193D1E91F78F7B400B4C101 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6193D1EB1F78F7B400B4C101 /* behance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = behance.entitlements; sourceTree = "<group>"; };
+		6193D1F31F790B4900B4C101 /* https.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = https.cer; sourceTree = "<group>"; };
+		9C3EED3B11244DB2A31CB55C /* Pods-behance.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-behance.debug.xcconfig"; path = "Pods/Target Support Files/Pods-behance/Pods-behance.debug.xcconfig"; sourceTree = "<group>"; };
+		EE48D543643B088F908CEC7A /* libPods-behance.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-behance.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,17 +38,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08E7111CF2FCE9C91FC018BC /* libPods-behance.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2296425B127F97DCE67E5EF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE48D543643B088F908CEC7A /* libPods-behance.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6193D1D11F78F7B400B4C101 = {
 			isa = PBXGroup;
 			children = (
 				6193D1DC1F78F7B400B4C101 /* behance */,
 				6193D1DB1F78F7B400B4C101 /* Products */,
+				6A0D44D5CE45B09CA5F85A8B /* Pods */,
+				2296425B127F97DCE67E5EF2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,12 +79,22 @@
 				6193D1E01F78F7B400B4C101 /* ViewController.h */,
 				6193D1E11F78F7B400B4C101 /* ViewController.m */,
 				6193D1E31F78F7B400B4C101 /* Assets.xcassets */,
+				6193D1F31F790B4900B4C101 /* https.cer */,
 				6193D1E51F78F7B400B4C101 /* Main.storyboard */,
 				6193D1E81F78F7B400B4C101 /* Info.plist */,
 				6193D1E91F78F7B400B4C101 /* main.m */,
 				6193D1EB1F78F7B400B4C101 /* behance.entitlements */,
 			);
 			path = behance;
+			sourceTree = "<group>";
+		};
+		6A0D44D5CE45B09CA5F85A8B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C3EED3B11244DB2A31CB55C /* Pods-behance.debug.xcconfig */,
+				4750EA6F2BE2160AEADC962A /* Pods-behance.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +104,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6193D1EE1F78F7B400B4C101 /* Build configuration list for PBXNativeTarget "behance" */;
 			buildPhases = (
+				A7267FB2AD73AE42AF7ED975 /* [CP] Check Pods Manifest.lock */,
 				6193D1D61F78F7B400B4C101 /* Sources */,
 				6193D1D71F78F7B400B4C101 /* Frameworks */,
 				6193D1D81F78F7B400B4C101 /* Resources */,
+				EAC7EB298B2FC5A4D0A0CFCE /* [CP] Embed Pods Frameworks */,
+				A8530DD1F8A56C501C5A29BB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,11 +159,60 @@
 			buildActionMask = 2147483647;
 			files = (
 				6193D1E41F78F7B400B4C101 /* Assets.xcassets in Resources */,
+				6193D1F41F790BDB00B4C101 /* https.cer in Resources */,
 				6193D1E71F78F7B400B4C101 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A7267FB2AD73AE42AF7ED975 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A8530DD1F8A56C501C5A29BB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-behance/Pods-behance-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EAC7EB298B2FC5A4D0A0CFCE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-behance/Pods-behance-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6193D1D61F78F7B400B4C101 /* Sources */ = {
@@ -265,9 +344,9 @@
 		};
 		6193D1EF1F78F7B400B4C101 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C3EED3B11244DB2A31CB55C /* Pods-behance.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = behance/behance.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = NWJM7PNTRW;
@@ -280,9 +359,9 @@
 		};
 		6193D1F01F78F7B400B4C101 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4750EA6F2BE2160AEADC962A /* Pods-behance.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = behance/behance.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = NWJM7PNTRW;
