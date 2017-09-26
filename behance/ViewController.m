@@ -30,9 +30,47 @@
     [super viewDidLoad];
     self.listArray = [NSMutableArray array];
     self.URLTextField.stringValue = @"https://www.behance.net/gallery/52499143/Alptraum";
+    self.infoView.hidden = YES;
     // Do any additional setup after loading the view.
 }
 - (IBAction)exprot:(id)sender {
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    [openDlg setCanChooseFiles:YES];
+    [openDlg setCanChooseDirectories:YES];
+    [openDlg setAllowsMultipleSelection:YES];
+    [openDlg setAllowedFileTypes:@[]];
+    
+    [openDlg beginWithCompletionHandler:^(NSInteger result) {
+        
+        if (result == NSFileHandlingPanelOKButton) {
+            NSArray *fileURLs = [openDlg URLs];
+            NSString*filePath = [fileURLs firstObject];
+            NSString*ex = [[self.URLTextField.stringValue componentsSeparatedByString:@"/"] lastObject];
+            NSString*path = [NSString stringWithFormat:@"%@%@",filePath,ex];
+            
+            NSError*error;
+            if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+            }
+            [@"123" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            if (error) {
+                NSLog(@"error _ %@",error);
+            }
+        }
+    }];
+    dispatch_queue_t queue = dispatch_queue_create("wait", DISPATCH_QUEUE_CONCURRENT);
+    [self.listArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        dispatch_async(queue, ^{
+            NSLog(@"dispatch_async1_%ld",idx);
+        });
+    }];
+    
+
+    //等待前面线程执行结束
+    dispatch_barrier_async(queue, ^{
+        NSLog(@"dispatch_barrier_async");
+    });
+    
 }
 - (IBAction)beginAction:(id)sender {
     
@@ -45,7 +83,10 @@
     } success:^(NSData *data) {
         NSLog(@"success");
         [selfWeak.listArray addObjectsFromArray:[selfWeak HTMLDocumentWithData:data]];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 更新界面
+            selfWeak.infoView.hidden = NO;
+        });
         
     } failure:^(NSError *error) {
         NSLog(@"failure");
@@ -94,7 +135,7 @@
     [manager.requestSerializer setValue:@"gzip, deflate, br" forHTTPHeaderField:@"Accept-Encoding"];
 
 //    [manager.requestSerializer setValue:@"bgk=15634844; bcp=e4f840a5-bdb4-4f34-bc67-28ef150dcdc3; ilo0=true" forHTTPHeaderField:@"Cookie"];
-    [manager.requestSerializer setValue:@"bgk=27029875;ilo0=true" forHTTPHeaderField:@"Cookie"];
+    [manager.requestSerializer setValue:@"ilo0=true" forHTTPHeaderField:@"Cookie"];
     [manager.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
     [manager.requestSerializer setValue:@"1" forHTTPHeaderField:@"Upgrade-Insecure-Requests"];
     [manager.requestSerializer setValue:@"max-age=0" forHTTPHeaderField:@"Cache-Control"];
@@ -125,8 +166,22 @@
 - (NSArray*)HTMLDocumentWithData:(NSData*)data{
     NSMutableArray*array = [NSMutableArray new];
     ONOXMLDocument *doc = [ONOXMLDocument HTMLDocumentWithData:data error:nil];
-    [doc enumerateElementsWithXPath:@"//img//@srcset" usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
-        NSLog(@"%ld_%@",idx,element);
+    [doc enumerateElementsWithXPath:@"//div[@id='project-modules']//img//@srcset" usingBlock:^(ONOXMLElement *element, NSUInteger idx, BOOL *stop) {
+
+        NSArray*earray = [element.stringValue componentsSeparatedByString:@" "];
+        [[[earray reverseObjectEnumerator] allObjects] enumerateObjectsUsingBlock:^(NSString*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.length>15) {
+                NSArray*finallyArray = [obj componentsSeparatedByString:@","];
+                [finallyArray enumerateObjectsUsingBlock:^(NSString*  _Nonnull finallyStr, NSUInteger idx, BOOL * _Nonnull finallyStop) {
+                    if (finallyStr.length>20) {
+                        [array addObject:finallyStr];
+                        *finallyStop = YES;
+                        *stop        = YES;
+                    }
+                }];
+            }
+        }];
+        
     }];
     return array;
 }
