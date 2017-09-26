@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08E7111CF2FCE9C91FC018BC /* libPods-behance.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE48D543643B088F908CEC7A /* libPods-behance.a */; };
+		61372D0F1F7A318D00EC45F6 /* wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = 61372D0E1F7A2E5700EC45F6 /* wait.gif */; };
 		6193D1DF1F78F7B400B4C101 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1DE1F78F7B400B4C101 /* AppDelegate.m */; };
 		6193D1E21F78F7B400B4C101 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1E11F78F7B400B4C101 /* ViewController.m */; };
 		6193D1E41F78F7B400B4C101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6193D1E31F78F7B400B4C101 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		4750EA6F2BE2160AEADC962A /* Pods-behance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-behance.release.xcconfig"; path = "Pods/Target Support Files/Pods-behance/Pods-behance.release.xcconfig"; sourceTree = "<group>"; };
+		61372D0E1F7A2E5700EC45F6 /* wait.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait.gif; sourceTree = "<group>"; };
 		6193D1DA1F78F7B400B4C101 /* behance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = behance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6193D1DD1F78F7B400B4C101 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6193D1DE1F78F7B400B4C101 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				6193D1E01F78F7B400B4C101 /* ViewController.h */,
 				6193D1E11F78F7B400B4C101 /* ViewController.m */,
 				6193D1E31F78F7B400B4C101 /* Assets.xcassets */,
+				61372D0E1F7A2E5700EC45F6 /* wait.gif */,
 				6193D1F31F790B4900B4C101 /* https.cer */,
 				6193D1E51F78F7B400B4C101 /* Main.storyboard */,
 				6193D1E81F78F7B400B4C101 /* Info.plist */,
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6193D1E41F78F7B400B4C101 /* Assets.xcassets in Resources */,
+				61372D0F1F7A318D00EC45F6 /* wait.gif in Resources */,
 				6193D1F41F790BDB00B4C101 /* https.cer in Resources */,
 				6193D1E71F78F7B400B4C101 /* Main.storyboard in Resources */,
 			);

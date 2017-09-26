@@ -18,9 +18,10 @@
 @property (weak) IBOutlet NSTextField *URLTextField;
 @property (weak) IBOutlet NSTextField *infoLabel;
 @property (weak) IBOutlet NSView *infoView;
+@property (weak) IBOutlet NSView *layerview;
 
 
-@property (nonatomic,strong) NSMutableArray*listArray;
+@property (nonatomic,strong) NSMutableArray * listArray;
 @end
 
 
@@ -29,9 +30,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.listArray = [NSMutableArray array];
-    self.URLTextField.stringValue = @"https://www.behance.net/gallery/52499143/Alptraum";
+
+//    self.URLTextField.stringValue = @"https://www.behance.net/gallery/52499143/Alptraum";
     self.infoView.hidden = YES;
-    // Do any additional setup after loading the view.
+    
+    
+    NSImageView *view = [[NSImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 90)];
+    view.imageScaling = NSImageScaleNone;
+    view.animates = YES;
+    view.image = [NSImage imageNamed:@"wait.gif"];
+    view.canDrawSubviewsIntoLayer = YES;
+    
+    
+    self.layerview.wantsLayer = YES;
+    [self.layerview addSubview:view];
+    self.layerview.hidden = YES;
 }
 - (IBAction)exprot:(id)sender {
     NSOpenPanel* openDlg = [NSOpenPanel openPanel];
@@ -39,37 +52,53 @@
     [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:YES];
     [openDlg setAllowedFileTypes:@[]];
+    [openDlg setMessage:@"选择保存的路径"];
     
     [openDlg beginWithCompletionHandler:^(NSInteger result) {
         
         if (result == NSFileHandlingPanelOKButton) {
-            NSArray *fileURLs = [openDlg URLs];
-            NSString*filePath = [fileURLs firstObject];
-            NSString*ex = [[self.URLTextField.stringValue componentsSeparatedByString:@"/"] lastObject];
-            NSString*path = [NSString stringWithFormat:@"%@%@",filePath,ex];
             
-            NSError*error;
-            if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-            }
-            [@"123" writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:nil];
-            if (error) {
-                NSLog(@"error _ %@",error);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.layerview.hidden = NO;
+                self.infoView.hidden = YES;
+                
+            });
+            NSArray *fileURLs = [openDlg URLs];
+            NSURL*fileURL = [fileURLs firstObject];
+            NSString *name = [[self.URLTextField.stringValue componentsSeparatedByString:@"/"] lastObject];
+            
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+
+            NSString* path = [fileURL.absoluteString stringByAppendingPathComponent:name];//拼接
+
+            dispatch_queue_t queue = dispatch_queue_create("wait", DISPATCH_QUEUE_CONCURRENT);
+//            @WEAKSELF(self);
+            [self.listArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                dispatch_async(queue, ^{
+                    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:obj]];
+                    NSString * writerStr =[path stringByAppendingPathComponent:[[obj componentsSeparatedByString:@"/"] lastObject]];
+                    if (![manager fileExistsAtPath:[NSURL URLWithString:path].absoluteString]) {
+                        
+                        [manager createDirectoryAtURL:[NSURL URLWithString:path] withIntermediateDirectories:YES attributes:@{} error:nil];
+                    }
+                    [data writeToURL:[NSURL URLWithString:writerStr] atomically:YES];
+                    
+                });
+            }];
+
+            dispatch_barrier_async(queue, ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.layerview.hidden = YES;
+                    self.infoView.hidden = YES;
+                    self.URLTextField.stringValue = @"";
+                    [[NSWorkspace sharedWorkspace] openFile:path
+                                            withApplication:@"Finder"];
+                });
+            });
         }
     }];
-    dispatch_queue_t queue = dispatch_queue_create("wait", DISPATCH_QUEUE_CONCURRENT);
-    [self.listArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        dispatch_async(queue, ^{
-            NSLog(@"dispatch_async1_%ld",idx);
-        });
-    }];
-    
 
-    //等待前面线程执行结束
-    dispatch_barrier_async(queue, ^{
-        NSLog(@"dispatch_barrier_async");
-    });
     
 }
 - (IBAction)beginAction:(id)sender {
@@ -77,19 +106,26 @@
     if (!self.URLTextField.stringValue) {
         return;
     }
+    self.layerview.hidden = NO;
     @WEAKSELF(self);
     [self downloadHtmlURLString:self.URLTextField.stringValue willStartBlock:^{
         
     } success:^(NSData *data) {
-        NSLog(@"success");
+        [selfWeak.listArray removeAllObjects];
         [selfWeak.listArray addObjectsFromArray:[selfWeak HTMLDocumentWithData:data]];
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
+            selfWeak.layerview.hidden = YES;
             selfWeak.infoView.hidden = NO;
+            selfWeak.infoLabel.stringValue = [NSString stringWithFormat:@"共%ld张",selfWeak.listArray.count];
         });
         
     } failure:^(NSError *error) {
-        NSLog(@"failure");
+        dispatch_async(dispatch_get_main_queue(), ^{
+        selfWeak.layerview.hidden = YES;
+        selfWeak.infoView.hidden = NO;
+        selfWeak.infoLabel.stringValue = [NSString stringWithFormat:@"网络错误！"];
+        });
     }];
 }
 
