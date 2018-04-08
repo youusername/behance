@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		08E7111CF2FCE9C91FC018BC /* libPods-behance.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE48D543643B088F908CEC7A /* libPods-behance.a */; };
 		61372D0F1F7A318D00EC45F6 /* wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = 61372D0E1F7A2E5700EC45F6 /* wait.gif */; };
+		6138C6852079FDA70053DCDE /* WindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6138C6832079FDA70053DCDE /* WindowController.m */; };
 		6193D1DF1F78F7B400B4C101 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1DE1F78F7B400B4C101 /* AppDelegate.m */; };
 		6193D1E21F78F7B400B4C101 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6193D1E11F78F7B400B4C101 /* ViewController.m */; };
 		6193D1E41F78F7B400B4C101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6193D1E31F78F7B400B4C101 /* Assets.xcassets */; };
@@ -22,6 +23,8 @@
 /* Begin PBXFileReference section */
 		4750EA6F2BE2160AEADC962A /* Pods-behance.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-behance.release.xcconfig"; path = "Pods/Target Support Files/Pods-behance/Pods-behance.release.xcconfig"; sourceTree = "<group>"; };
 		61372D0E1F7A2E5700EC45F6 /* wait.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wait.gif; sourceTree = "<group>"; };
+		6138C6832079FDA70053DCDE /* WindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindowController.m; sourceTree = "<group>"; };
+		6138C6842079FDA70053DCDE /* WindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowController.h; sourceTree = "<group>"; };
 		6193D1DA1F78F7B400B4C101 /* behance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = behance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6193D1DD1F78F7B400B4C101 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6193D1DE1F78F7B400B4C101 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				6193D1DE1F78F7B400B4C101 /* AppDelegate.m */,
 				6193D1E01F78F7B400B4C101 /* ViewController.h */,
 				6193D1E11F78F7B400B4C101 /* ViewController.m */,
+				6138C6842079FDA70053DCDE /* WindowController.h */,
+				6138C6832079FDA70053DCDE /* WindowController.m */,
 				6193D1E31F78F7B400B4C101 /* Assets.xcassets */,
 				61372D0E1F7A2E5700EC45F6 /* wait.gif */,
 				6193D1F31F790B4900B4C101 /* https.cer */,
@@ -247,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61E6CC0B1F8CFF0600D8B2A1 /* GRViewController.m in Sources */,
+				6138C6852079FDA70053DCDE /* WindowController.m in Sources */,
 				6193D1E21F78F7B400B4C101 /* ViewController.m in Sources */,
 				61E6CC0A1F8CFF0300D8B2A1 /* GRNavigationController.m in Sources */,
 				6193D1EA1F78F7B400B4C101 /* main.m in Sources */,
