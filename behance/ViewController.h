@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GRViewController.h"
 
-@interface ViewController : NSViewController
+@interface ViewController : GRViewController
 
 
 @end
